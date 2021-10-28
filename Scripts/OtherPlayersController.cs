@@ -93,11 +93,14 @@ public class OtherPlayersController : MonoBehaviour
 
     void Kill()
     {
-        otherPlayersRb.velocity = new Vector3(0, 0, 0);
+        if(!isDead)
+        {
+            otherPlayersRb.velocity = new Vector3(0, 0, 0);
 
-        FindObjectOfType<AudioManager>().Play("gunshot");
-        ResetAllTriggers("Killed");
-        isDead = true;
+            FindObjectOfType<AudioManager>().Play("gunshot");
+            ResetAllTriggers("Killed");
+            isDead = true;
+        }
     }
 
     void ResetAllTriggers(string newTrigger)

@@ -24,20 +24,20 @@ public class PlayerController : MonoBehaviour
     {
         if(GameManager.isGameActive && !isDead)
         {
-            if(Input.GetMouseButtonDown(0))
-            {
-                StartMoving();
-            }
-            else if(Input.GetMouseButtonUp(0))
-            {
-                StopMoving();
-            }
+            // if(Input.GetMouseButtonDown(0))
+            // {
+            //     StartMoving();
+            // }
+            // else if(Input.GetMouseButtonUp(0))
+            // {
+            //     StopMoving();
+            // }
 
             if(Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
                 
-                if(touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+                if(touch.phase == TouchPhase.Moved)
                 {
                     StartMoving();
                 }

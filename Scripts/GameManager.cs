@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public bool isComplete = false;
 
-    public float finishLine = 80.0f;
+    public float finishLine = 85.0f;
     private float timeLeft = 120;
     public float greenLightTime, redLightTime;
     private int[] greenLightTimeValues = {3, 5, 7};
+    private string[] greenLightSounds = {"greenlight_3s", "greenlight_5s", "greenlight_7s"};
+    private string greenLightSound;
 
     public GameObject gameCompletePanel;
     public GameObject gameOverPanel;
@@ -32,36 +34,42 @@ public class GameManager : MonoBehaviour
     
     public TextMeshProUGUI timeText;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 0;
+        audioManager = FindObjectOfType<AudioManager>();
         RedLight();
+        Time.timeScale = 0;
     }
 
     void GreenLight()
     {
         isGreenLight = true;
-        greenLightTime = greenLightTimeValues[Random.Range(0, greenLightTimeValues.Length)];
+        
+        greenLightSound = greenLightSounds[Random.Range(0, greenLightSounds.Length)];
+        greenLightTime = audioManager.Length(greenLightSound);
 
+        audioManager.Play(greenLightSound);
 
         redLight.gameObject.SetActive(false);
         greenLight.gameObject.SetActive(true);
 
-        if(greenLightTime == 3)
-        {
-            FindObjectOfType<AudioManager>().Play("greenlight_3s");
-        }
+        // if(greenLightTime == 3)
+        // {
+        //     AudioManager.Play("greenlight_3s");
+        // }
 
-        else if(greenLightTime == 5)
-        {
-            FindObjectOfType<AudioManager>().Play("greenlight_5s");
-        }
+        // else if(greenLightTime == 5)
+        // {
+        //     FindObjectOfType<AudioManager>().Play("greenlight_5s");
+        // }
 
-        else if(greenLightTime == 7)
-        {
-            FindObjectOfType<AudioManager>().Play("greenlight_5s");
-        }
+        // else if(greenLightTime == 7)
+        // {
+        //     FindObjectOfType<AudioManager>().Play("greenlight_5s");
+        // }
     }
 
     void RedLight()
